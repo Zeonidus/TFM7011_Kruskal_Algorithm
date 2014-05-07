@@ -13,6 +13,9 @@ import java.util.NoSuchElementException;
  * Keith Schwarz (htiek@cs.stanford.edu)
  */
 
+/* The UndirectedGraph class is used to represent a 
+ * weighted, undirected graph. 
+ */
 public final class UndirectedGraph<K> implements Iterable<K> {
 	
 	//(Node1, Link(Node2, Weight))
@@ -20,6 +23,10 @@ public final class UndirectedGraph<K> implements Iterable<K> {
 	
 	//@ public invariant g != null;
 	
+	/* Adds a node into the HashMap.
+	 * If the node exist, returns a false;
+	 * Else, add the node and creates an empty link.
+	 */
 	//@ requires node != null;
 	//@ modifies this.g;
 	//@ ensures this.g.containsKey(node);
@@ -32,12 +39,18 @@ public final class UndirectedGraph<K> implements Iterable<K> {
 		}
 	}
 	
+	/* Overloaded method to add an edge into the HashMap */
 	//@ requires e != null;
 	//@ modifies this.g;
 	public void addEdge(Edge<K> e) {
 		addEdge(e.n1, e.n2, e.weight);
 	}
 	
+	/* Adds an edge into the HashMap.
+	 * If either node does not exist, 
+	 * throws an exception;
+	 * Else, links both the nodes together. 
+	 */
 	//@ requires n1 != null && n2 != null && weight > 0;
 	//@ modifies this.g;
 	//@ ensures this.g.get(n1) == n1;
@@ -52,6 +65,8 @@ public final class UndirectedGraph<K> implements Iterable<K> {
 		}
 	}
 	
+	/* Converts the HashMap into a list of edges */
+	//@ ensures \result == list && \result != null;
 	public /*@ pure @*/ List<Edge<K>> toEdges() { 
 		List<Edge<K>> list = new ArrayList<Edge<K>>();
 		List<K> used = new ArrayList<K>();
@@ -68,11 +83,13 @@ public final class UndirectedGraph<K> implements Iterable<K> {
 		return list;
 	}
 	
-	//Unimplemented since kruskal's algorithm doesn't require it.
+	/* Unimplemented since Kruskal's algorithm does not require it. */
 	//public void removeEdge() {}
 	
+	/* Returns an unmodifiable 'view' of all the nodes connected
+	 * to the input node.
+	 */
 	//@ requires node != null;
-	// ensures g.get(node) == n; //JML error: parser cannot 'see' n.
     public Map<K, Integer> edgesFrom(K node) {
         Map<K, Integer> n = g.get(node);
         if (n == null)

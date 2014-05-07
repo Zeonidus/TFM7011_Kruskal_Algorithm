@@ -3,6 +3,10 @@
  * http://www.keithschwarz.com/interesting/code/?dir=kruskal
  * Keith Schwarz (htiek@cs.stanford.edu)
  */
+
+/* The Edge class represents the edge or 'links' between 
+ * nodes in the Undirected Graph. 
+ */
 public final class Edge<K> implements Comparable<Edge<K>> {
 	/*@ spec_public @*/ K n1, n2;
 	/*@ spec_public @*/ int weight;

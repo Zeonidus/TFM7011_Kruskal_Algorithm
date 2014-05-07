@@ -57,6 +57,11 @@ public class UnionFind<T> {
 		}
 	}
 	
+	/* The Find operation attempts to find the representation
+	 * of the disjoint-set by recursively 'climbing' up the
+	 * ladder of parents until the highest parent is found
+	 * (the node's parent points to itself) 
+	 */
 	//@ requires e != null;
 	public T find(T e) {
 		if(!g.containsKey(e)) {
@@ -79,7 +84,7 @@ public class UnionFind<T> {
 		}
 	}
 	
-	//Set a node's parent to another
+	//Set a node's parent to another node
 	//@ requires n1 != null && n2 != null;
 	public void union(T n1, T n2) {
 		Link<T> l1 = g.get(find(n1));
